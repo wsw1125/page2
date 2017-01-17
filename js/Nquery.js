@@ -334,14 +334,12 @@ $().extend('centerImg', function(){
 	}
 	//图片居中显示
 	function centerImg(aImg){
-		// toReSize();
 		var imgWidth=parseInt(aImg.offsetWidth);
 		window.onresize=function(){
 			toReSize();
 		}
 		toReSize()
 		function toReSize(){
-			//var veiWinth=document.documentElement.clientWidth;
 			var veiWinth=document.body.clientWidth||document.docuemntElement.clientWidth;
 			if(veiWinth>1000){
 				aImg.style.left=-(imgWidth-veiWinth)/2+'px';
@@ -351,75 +349,67 @@ $().extend('centerImg', function(){
 
 });
 
-$().extend('animate', function (json){
+$().extend('animate', function (json, endFn){
 	var i=0;
 	
 	for(i=0;i<this.elements.length;i++)
 	{
-		startMove(this.elements[i], json);
+		startMove(this.elements[i], json, endFn);
 	}
+
+	function startMove(obj,json,endFn){
 	
-	function getStyle(obj, attr)
-	{
-		if(obj.currentStyle)
-		{
-			return obj.currentStyle[attr];
-		}
-		else
-		{
-			return getComputedStyle(obj, false)[attr];
-		}
-	}
-	
-	function startMove(obj, json, fn)
-	{
 		clearInterval(obj.timer);
-		obj.timer=setInterval(function (){
-			var bStop=true;		//这一次运动就结束了——所有的值都到达了
-			for(var attr in json)
-			{
-				//1.取当前的值
-				var iCur=0;
+		
+		obj.timer = setInterval(function(){
+			
+			var bBtn = true;
+			
+			for(var attr in json){
 				
-				if(attr=='opacity')
-				{
-					iCur=parseInt(parseFloat(getStyle(obj, attr))*100);
+				var iCur = 0;
+			
+				if(attr == 'opacity'){
+					if(Math.round(parseFloat(getStyle(obj,attr))*100)==0){
+					iCur = Math.round(parseFloat(getStyle(obj,attr))*100);
+					
+					}
+					else{
+						iCur = Math.round(parseFloat(getStyle(obj,attr))*100) || 100;
+					}	
 				}
-				else
-				{
-					iCur=parseInt(getStyle(obj, attr));
-				}
-				
-				//2.算速度
-				var iSpeed=(json[attr]-iCur)/8;
-				iSpeed=iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
-				
-				//3.检测停止
-				if(iCur!=json[attr])
-				{
-					bStop=false;
+				else{
+					iCur = parseInt(getStyle(obj,attr)) || 0;
 				}
 				
-				if(attr=='opacity')
-				{
-					obj.style.filter='alpha(opacity:'+(iCur+iSpeed)+')';
-					obj.style.opacity=(iCur+iSpeed)/100;
+				var iSpeed = (json[attr] - iCur)/8;
+			iSpeed = iSpeed >0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+				if(iCur!=json[attr]){
+					bBtn = false;
 				}
-				else
-				{
-					obj.style[attr]=iCur+iSpeed+'px';
+				
+				if(attr == 'opacity'){
+					obj.style.filter = 'alpha(opacity=' +(iCur + iSpeed)+ ')';
+					obj.style.opacity = (iCur + iSpeed)/100;
+					
+				}
+				else{
+					obj.style[attr] = iCur + iSpeed + 'px';
+				}
+				
+				
+			}
+			
+			if(bBtn){
+				clearInterval(obj.timer);
+				
+				if(endFn){
+					endFn.call(obj);
 				}
 			}
 			
-			if(bStop)
-			{
-				clearInterval(obj.timer);
-				
-				if(fn)
-				{
-					fn();
-				}
-			}
-		},15)
+		},30);
+	
 	}
+
 });

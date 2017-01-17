@@ -16,12 +16,10 @@ $(function(){
 			logo.animate({'top':'15'});
 		};
 	};
-	
 	$(window).bind('scroll',function(){
 		scrollTops=document.documentElement.scrollTop||document.body.scrollTop;
 		hiedNav();
 	});
-
 	var desimg=$('#des').find('img');
 	var desa=$('#des').find('a');
 	var desp=$('#des').find('p');

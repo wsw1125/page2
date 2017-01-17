@@ -27,21 +27,21 @@ a{
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
 ::-webkit-scrollbar  
 {  
-    width:7px;  
-    height:7px;  
+    width:8px;  
+    height:8px;  
     background-color:#F5F5F5;  
 }  
  /*定义滚动条轨道 内阴影+圆角*/  
 ::-webkit-scrollbar-track  
 {  
-    -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);  
+    -webkit-box-shadow:inset 0 0 4px rgba(0,0,0,0.3);  
     background-color:#F5F5F5;  
 }  
   
 /*定义滑块 内阴影+圆角*/  
 ::-webkit-scrollbar-thumb  
 {  
-    -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);  
+    -webkit-box-shadow:inset 0 0 4px rgba(0,0,0,.3);  
     background-color:#03d522;  
 } 
 /* 头部导航区域 */
@@ -112,24 +112,20 @@ a{
 	overflow:hidden;
 	min-width:1000px;
 	z-index:-100;
-	/*position:relative;*/
 }
 #banner ul{
+	height:700px;
 	position:absolute;
 	top:0;
 	left:0; 
-	background:red;
-
 }
 #banner ul li{
 	float:left;
-	position:relative;
 }
 #banner ul img{
-	position:absolute;
-	top:0;
+	position:relative;
+	left:-605px;
 	width:2560px;
-	display:block; 
 }
 #banner .btn{
 	width:40px;
@@ -147,10 +143,10 @@ a{
 #banner .btn:hover{
 	background-color:#03d522;
 }
-#banner .prev{
+#prev{
 	left:2%;
 }
-#banner .next{
+#next{
 	right:2%;
 }
 /*内容居中*/
@@ -518,7 +514,7 @@ a{
 #footer form .inputtxt:hover{
 	border-bottom:1px solid #03d522;
 }
-#footer form .Content{
+#footer form .context{
 	height:100px;
 	overflow: hidden;
     resize: none;
@@ -669,7 +665,7 @@ a{
 .bgimg img{
 	position:absolute;
 	top:0;
-	left:0;
+	left:-281px;
 }
 #gotop{
 	width:30px;
